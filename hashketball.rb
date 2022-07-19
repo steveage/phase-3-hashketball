@@ -127,3 +127,63 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(name)
+  num_points = get_player(name)[:points]
+end
+
+def get_all_players()
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = (home_players << away_players).flatten
+end
+
+def get_player(name)
+  player = get_all_players().find {|player| player[:player_name] == name}
+end
+
+def shoe_size(name)
+  shoe_size = get_player(name)[:shoe]
+end
+
+def team_colors(team_name)
+  team_colors = get_team(team_name)[:colors]
+end
+
+def get_teams()
+  home_team = game_hash[:home]
+  away_team = game_hash[:away]
+  all_teams = [home_team, away_team]
+end
+
+def team_names()
+  names = get_teams().map do |team|
+    "#{team[:team_name]}"
+  end
+end
+
+def player_numbers(team_name)
+  numbers = get_team(team_name)[:players].map { |player| player[:number] }
+
+end
+
+def get_team(name)
+  team = get_teams().find {|team| team[:team_name] == name}
+end
+
+def player_stats(name)
+  stats = get_player(name)
+end
+
+def big_shoe_rebounds()
+  sorted_players = get_all_players().sort do |player1, player2|
+    if player1[:shoe] == player2[:shoe]
+      0
+    elsif player1[:shoe] > player2[:shoe]
+      1
+    elsif player1[:shoe] < player2[:shoe]
+      -1
+    end
+  end
+
+    max_rebounds = sorted_players.last[:rebounds]
+end
